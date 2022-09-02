@@ -26,7 +26,6 @@ router.get('/', async (req, res) => {
       const response = axiosGetName.concat(dbGetName);
       if (response.length > 0) res.status(200).send(response);
       else res.status(404).send(`Recipes containing ${req.query.name} not found.`);
-      
     } else {
       const dbGetAll = await Recipe.findAll();
       try {
@@ -49,8 +48,7 @@ router.get('/:idRecipe', async (req, res) => {
   try {
     if (/\d*/.test(idRecipe)) {
       const axiosGetId = await axios.get(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${YOUR_API_KEY}`);
-      res.status(200).send(axiosGetId.data)
-      // res.status(200).send(axiosGetId.data);
+      res.status(200).send(axiosGetId.data);  
     } else if (/[\w\d]{8}\b-.*/.test(idRecipe)) {
       const dbGetId = await Recipe.findAll({
         where: {
@@ -64,21 +62,7 @@ router.get('/:idRecipe', async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-
-/*   try {
-    const axiosGetId = await axios.get(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${YOUR_API_KEY}`);
-    const dbGetId = await Recipe.findAll({
-      where: {
-        id: {
-          [Op.eq]: idRecipe
-        }
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  } */
-   
- });
+});
 
 router.post('/', async (req, res) => {
   const { name, plate_summary, health_score, step_by_step, image } = req.body;

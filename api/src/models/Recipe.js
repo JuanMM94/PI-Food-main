@@ -5,9 +5,9 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('recipe', {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: Sequelize.UUIDV1,
+      defaultValue: Sequelize.INTEGER,
       primaryKey: true
     },
     name: {
