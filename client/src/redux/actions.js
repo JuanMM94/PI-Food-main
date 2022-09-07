@@ -1,4 +1,4 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE } from "./constants";
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, SET_RECIPES } from "./constants";
 
 export const getAllRecipes = () => dispatch => {
   return fetch(`http://localhost:3001/api/recipes`)
@@ -31,3 +31,10 @@ export const createRecipe = (recipeCreated) => {
     payload: recipeCreated,
   }
 };
+
+export const setRecipes = (setRecipes) => {
+  return {
+    type: SET_RECIPES,
+    payload: setRecipes
+  }
+}

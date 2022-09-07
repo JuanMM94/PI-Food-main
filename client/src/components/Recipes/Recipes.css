@@ -1,0 +1,6 @@
+.container-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1vw;
+  row-gap: 1vw;
+}

@@ -1,0 +1,18 @@
+.container-home {
+  background-image: url('food-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.button-home {
+  cursor: pointer;
+  background-color: #555555;
+  box-shadow: 0px 0px 15px black;
+  color: white;
+  position: relative;
+}
+
+.button-home:hover {
+  box-shadow: 0px 0px 18px black;
+  transform: scale(1.01);
+}

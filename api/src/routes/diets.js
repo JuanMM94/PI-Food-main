@@ -15,14 +15,7 @@ const dietsArray = ["Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian"
 
 router.get('/', async (req, res) => {
   try {
-    dietsArray.forEach((el, i) => {
-      Diet.findOrCreate({
-        where: {
-          id: i + 1,
-          name: el
-        }
-      })
-    })
+    dietsArray.forEach(el => Diet.findOrCreate(el));
     res.status(200).send(await Diet.findAll());
   } catch (err) {
     console.log(err);

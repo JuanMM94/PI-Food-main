@@ -4,14 +4,8 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('diet', {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: DataTypes.INTEGER,
-      primaryKey: true
-    },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(["Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal", "Low FODMAP", "Whole30"]),
     }
   });
 };

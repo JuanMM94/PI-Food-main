@@ -5,23 +5,23 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('recipe', {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
-      defaultValue: Sequelize.INTEGER,
+      defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    plate_summary: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    health_score: {
+    healthScore: {
       type: DataTypes.FLOAT
     },
-    step_by_step: {
+    analyzedInstructions: {
       type: DataTypes.JSON,
     },
     image: {

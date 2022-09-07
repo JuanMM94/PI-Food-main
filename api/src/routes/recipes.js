@@ -13,30 +13,26 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const axiosGetAll = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&number=100`);
+    const axiosGetAll = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100`);
     if (req.query.name) {
-      const dbGetName = await Recipe.findAll({
+      const dbGetTitle = await Recipe.findAll({
         where: {
-          name: {
+          title: {
             [Op.iLike]: req.query.name
           }
         }
       });
-      const axiosGetName = axiosGetAll.data.results.filter(el => el.title.toLowerCase().includes(req.query.name));
-      const response = axiosGetName.concat(dbGetName);
+      const axiosGetTitle = axiosGetAll.data.results.filter(el => el.title.toLowerCase().includes(req.query.name));
+      const response = axiosGetTitle.concat(dbGetTitle);
       if (response.length > 0) res.status(200).send(response);
       else res.status(404).send(`Recipes containing ${req.query.name} not found.`);
     } else {
       const dbGetAll = await Recipe.findAll();
-      try {
         const result = Promise.all([axiosGetAll.data.results, dbGetAll]);
         result.then(([a, b]) => {
           const response = a.concat(b);
           res.status(200).send(response);
         });
-      } catch (err) {
-        console.log(err);
-      }
     }
   } catch (err) {
     console.log(err);
@@ -46,10 +42,7 @@ router.get('/', async (req, res) => {
 router.get('/:idRecipe', async (req, res) => {
   const { idRecipe } = req.params;
   try {
-    if (/\d*/.test(idRecipe)) {
-      const axiosGetId = await axios.get(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${YOUR_API_KEY}`);
-      res.status(200).send(axiosGetId.data);  
-    } else if (/[\w\d]{8}\b-.*/.test(idRecipe)) {
+    if (idRecipe.includes('-')) {
       const dbGetId = await Recipe.findAll({
         where: {
           id: {
@@ -58,6 +51,9 @@ router.get('/:idRecipe', async (req, res) => {
         }
       });
       dbGetId.then(res.status(200).send(dbGetId));
+    } else {
+      const axiosGetId = await axios.get(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${YOUR_API_KEY}`);
+      res.status(200).send(axiosGetId.data);  
     }
   } catch (err) {
     console.log(err);
@@ -65,13 +61,13 @@ router.get('/:idRecipe', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name, plate_summary, health_score, step_by_step, image } = req.body;
+  const { title, summary, healthScore, analyzedInstructions, image } = req.body;
   try {
     const newRecipe = await Recipe.create({
-      name,
-      plate_summary,
-      health_score,
-      step_by_step,
+      title,
+      summary,
+      healthScore,
+      analyzedInstructions,
       image
     });
     res.status(201).json(newRecipe);
@@ -97,7 +93,6 @@ router.post('/', async (req, res) => {
     console.log(err);
   }
 })()
-
 
 router.get('/', async (req, res) => {
  try {
