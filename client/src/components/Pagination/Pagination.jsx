@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { setRecipes } from "../../redux/actions";
+import './Pagination.css';
 
 const Pagination = ({ recipes, setRecipes }) => {
   
@@ -8,20 +9,20 @@ const Pagination = ({ recipes, setRecipes }) => {
   const postsPerPage = 9;
 
   const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFistPost = indexOfLastPost - postsPerPage;
-  const totalPages = Math.ceil(recipes.length / 9);
-  const currentPosts = recipes.slice(indexOfFistPost, indexOfLastPost);
-
-  function buttonClick (num) {
-    setCurrentPage(num);
-  }
-
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const totalPages = Math.ceil(recipes.length / postsPerPage);
+  const currentPosts = recipes.slice(indexOfFirstPost, indexOfLastPost);
+  
   useEffect(() => {
     setRecipes (currentPosts);
   }, [currentPage, currentPosts, setRecipes])
   
+  function buttonClick (num) {
+    setCurrentPage(num);
+  }
+  
   return (
-    <div className="pagination-container">
+    <div className="container-pagination">
       {
         Array(totalPages).fill().map((el, index) => (
           <button onClick={() => buttonClick (index + 1)} key={index}>{index + 1}</button>
@@ -37,6 +38,4 @@ export const mapStateToProps = (state) => {
   }
 };
 
-
-
-export default connect(mapStateToProps, {setRecipes})(Pagination);
+export default connect(mapStateToProps, { setRecipes })(Pagination);

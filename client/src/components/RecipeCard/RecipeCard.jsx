@@ -1,14 +1,14 @@
 import { useHistory } from "react-router-dom";
 import './RecipeCard.css';
 
-const RecipeCard = ({renderRecipe}) => {
+const RecipeCard = ({ renderRecipe }) => {
   const history = useHistory();
   const recipe = renderRecipe;
 
   return (
-    <div className="backgroundImage" style={{backgroundImage: `url(${recipe.image})`}} onClick={() => history.push(`/recipes/${recipe.id}`)}>
+    <div className="background-image" style={{backgroundImage: `url(${recipe.image})`}} onClick={() => history.push(`/recipes/${recipe.id}`)}>
       <h4 className="title">{recipe.title}</h4>
-      <h5 className="diets">ASDASD</h5>
+      <h5 className="diets"> </h5>
     </div>
   )
 }

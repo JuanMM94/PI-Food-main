@@ -22,23 +22,25 @@ export class Recipes extends Component {
   
 
   render() {
-    if (this.state.loading) return <p>Loading...</p>
+
+    if (this.state.loading) return <p className='loading'>Loading...</p>
+    
     return (
-      <div className="container-recipes">
-        <Nav />
-        <br />
-        {
-          this.props.setrecipes &&
-          this.props.setrecipes.map( (renderRecipe, index) => 
-              <RecipeCard
-                key={index}
-                renderRecipe={renderRecipe}
-                />
-          )
-        }
-        <br />
-        <Pagination recipes={this.props.recipes} />
-      </div>
+      <>
+      <Nav />
+        <div className="container-recipes">
+          {
+            this.props.setrecipes &&
+            this.props.setrecipes.map( (renderRecipe, index) => 
+                <RecipeCard
+                  key={index}
+                  renderRecipe={renderRecipe}
+                  />
+            )
+          }
+        </div>
+      <Pagination recipes={this.props.recipes} />
+      </>
     );
   };
 };

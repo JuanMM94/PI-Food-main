@@ -1,4 +1,4 @@
-.backgroundImage {
+.background-image {
   width: 312px;
   height: 231px;
   margin: 0 1vw;
@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.backgroundImage:hover {
+.background-image:hover {
   box-shadow: 0px 5px 18px black;
   transform: scale(1.02);
 }
