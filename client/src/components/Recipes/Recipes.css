@@ -4,9 +4,15 @@
   top: 30vh;
 }
 
+.search-bar {
+  position: relative;
+  margin: 1vw 1vh;
+}
+
 .container-recipes {
   display: flex;
   flex-wrap: wrap;
   margin: 1vw;
   row-gap: 1vw;
 }
+

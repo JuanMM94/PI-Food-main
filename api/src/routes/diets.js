@@ -11,15 +11,6 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-const dietsArray = ["Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal", "Low FODMAP", "Whole30"]
 
-router.get('/', async (req, res) => {
-  try {
-    dietsArray.forEach(el => Diet.findOrCreate(el));
-    res.status(200).send(await Diet.findAll());
-  } catch (err) {
-    console.log(err);
-  }
-})
 
 module.exports = router;

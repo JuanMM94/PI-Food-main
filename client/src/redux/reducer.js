@@ -1,10 +1,12 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, SET_RECIPES } from "./constants";
+import { alphabeticalAscending, alphabeticalDescending } from "../utils/constants";
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, SET_RECIPES, SORT_RECIPES } from "./constants";
 
 
 const initialState = {
   recipes: [],
   recipe: {},
-  setrecipes: []
+  setrecipes: [],
+  sortrecipes: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -19,7 +21,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         recipe: action.payload
-      }
+      };
 
     case CREATE_RECIPE:
       return {
@@ -31,6 +33,40 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         setrecipes: action.payload
+      };
+
+    case SORT_RECIPES:
+      const sortedRecipes = [...state.recipes];
+      
+      switch (action.payload) {
+
+        case alphabeticalAscending:
+          sortedRecipes.sort((a, b) => {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+          });
+          break;
+
+        case alphabeticalDescending:
+          sortedRecipes.sort((a, b) => {
+            if (a.title < b.title) return 1;
+            if (a.title > b.title) return -1;
+            return 0;
+          });
+          break;
+
+        default:
+          sortedRecipes.sort((a, b) => {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+          });
+      }
+
+      return {
+        ...state,
+        sortrecipes: sortedRecipes
       }
 
     default:

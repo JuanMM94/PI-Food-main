@@ -1,4 +1,13 @@
 .container-nav {
-  left: 50vw;
-  margin: 1vw;
+  background-color:cadetblue; 
+  list-style-type: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container-nav li {
+  display: inline-block;
+  font-size: 20px;
+  padding: 20px;
 }

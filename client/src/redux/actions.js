@@ -1,4 +1,4 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, SET_RECIPES } from "./constants";
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, SET_RECIPES, SORT_RECIPES } from "./constants";
 
 export const getAllRecipes = () => dispatch => {
   return fetch(`http://localhost:3001/api/recipes`)
@@ -22,13 +22,10 @@ export const getRecipe = (id) => dispatch => {
     })
 };
 
-export const createRecipe = (recipeCreated) => {
-  let id = 0;
-  id++;
-  recipeCreated.id = id;
+export const createRecipe = (createRecipe) => {
   return {
     type: CREATE_RECIPE,
-    payload: recipeCreated,
+    payload: createRecipe,
   }
 };
 
@@ -36,5 +33,12 @@ export const setRecipes = (setRecipes) => {
   return {
     type: SET_RECIPES,
     payload: setRecipes
+  }
+};
+
+export const sortRecipes = (sortRecipes) => {
+  return {
+    type: SORT_RECIPES,
+    payload: sortRecipes
   }
 }

@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllRecipes } from '../../redux/actions';
+import { getAllRecipes, sortRecipes } from '../../redux/actions';
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Nav from '../Nav/Nav';
 import Pagination from '../Pagination/Pagination';
+import Sort from '../Sort/Sort';
 import './Recipes.css';
 
 export class Recipes extends Component {
   constructor() {
     super()
-    this.state = {loading: true}
+    this.state = {
+      loading: true,
+      query: ''
+    }
   }
 
   componentDidUpdate() {
+    this.props.sortRecipes(this.props.recipes);
     if (this.state.loading) this.setState({loading: false});
   }
 
@@ -24,22 +29,38 @@ export class Recipes extends Component {
   render() {
 
     if (this.state.loading) return <p className='loading'>Loading...</p>
-    
+
     return (
       <>
-      <Nav />
+        <Nav />
+        <div className='search-bar'>
+          <label htmlFor='search'>Search recipes:&nbsp;</label>
+          <input type='text' id='search' value={this.state.query || ''} onChange={event => this.setState({ query: event.target.value })} />
+          <Sort />
+        </div>
         <div className="container-recipes">
-          {
-            this.props.setrecipes &&
-            this.props.setrecipes.map( (renderRecipe, index) => 
+         {
+            this.state.query 
+          ? this.props.recipes &&
+            this.props.recipes
+            .filter(el => el.title.toLowerCase().includes(this.state.query.toLowerCase()))
+            .map( (renderRecipe, index) => 
                 <RecipeCard
                   key={index}
                   renderRecipe={renderRecipe}
                   />
             )
+          : this.props.setrecipes &&
+            this.props.setrecipes
+            .map( (renderRecipe, index) => 
+              <RecipeCard
+                key={index}
+                renderRecipe={renderRecipe}
+                />
+            )
           }
         </div>
-      <Pagination recipes={this.props.recipes} />
+        <Pagination recipes={this.props.recipes} />
       </>
     );
   };
@@ -55,6 +76,7 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
   return {
       getAllRecipes: () => dispatch(getAllRecipes()),
+      sortRecipes: () => dispatch(sortRecipes())
   }
 };
 
