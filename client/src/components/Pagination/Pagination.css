@@ -1,0 +1,8 @@
+.container-pagination {
+  position: relative;
+  left: 50vw;  
+}
+
+.button-pagination {
+  cursor: pointer;
+}

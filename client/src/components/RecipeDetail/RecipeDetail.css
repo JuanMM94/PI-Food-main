@@ -1,0 +1,4 @@
+.container-recipedetail {
+  display: flex;
+  flex-wrap: wrap;
+}
