@@ -2,3 +2,16 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.detail-title {
+
+}
+
+.detail-img {
+
+}
+
+.detail-summary {
+  top: 6vh;
+  position: relative;
+}

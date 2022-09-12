@@ -10,4 +10,17 @@
   display: inline-block;
   font-size: 20px;
   padding: 20px;
+  width: 15%;
+}
+
+.container-nav li a {
+  text-decoration: none;
+  padding: 7%;
+  border: 10px;
+  background-color:dodgerblue;
+  transition: .2s all;
+}
+
+.container-nav li a:hover {
+  background-color:aliceblue;
 }

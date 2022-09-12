@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllRecipes, sortRecipes } from '../../redux/actions';
+import { getAllRecipes } from '../../redux/actions';
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Nav from '../Nav/Nav';
 import Pagination from '../Pagination/Pagination';
 import Sort from '../Sort/Sort';
+import Filter from '../Filter/Filter';
 import './Recipes.css';
 
 export class Recipes extends Component {
@@ -14,30 +15,32 @@ export class Recipes extends Component {
       loading: true,
       query: ''
     }
-  }
+  };
 
   componentDidUpdate() {
-    this.props.sortRecipes(this.props.recipes);
     if (this.state.loading) this.setState({loading: false});
-  }
+  };
 
   componentDidMount() {
     this.props.getAllRecipes();
-  }
+  };
   
 
   render() {
 
-    if (this.state.loading) return <p className='loading'>Loading...</p>
+    if (this.state.loading) return <div className='loading'><p>Loading...</p></div>;
 
     return (
       <>
         <Nav />
-        <div className='search-bar'>
-          <label htmlFor='search'>Search recipes:&nbsp;</label>
-          <input type='text' id='search' value={this.state.query || ''} onChange={event => this.setState({ query: event.target.value })} />
+        <div className='container-searchbar'>
           <Sort />
+          <div className='searchbar'>
+          <label htmlFor='search'>Search recipes:</label>
+          <input type='text' id='search' className='searchbar-input' value={this.state.query || ''} onChange={event => this.setState({ query: event.target.value })} />
+          </div>
         </div>
+        <Filter />
         <div className="container-recipes">
          {
             this.state.query 
@@ -69,14 +72,14 @@ export class Recipes extends Component {
 export const mapStateToProps = (state) => {
   return {
       recipes: state.recipes,
-      setrecipes: state.setrecipes
+      setrecipes: state.setrecipes,
+      filterrecipes: state.filterrecipes
   }
 };
 
 export const mapDispatchToProps = (dispatch) => {
   return {
       getAllRecipes: () => dispatch(getAllRecipes()),
-      sortRecipes: () => dispatch(sortRecipes())
   }
 };
 

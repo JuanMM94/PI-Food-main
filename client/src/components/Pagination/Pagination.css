@@ -1,8 +1,10 @@
 .container-pagination {
+  display: flex;
+  justify-content: center;
   position: relative;
-  left: 50vw;  
 }
 
 .button-pagination {
   cursor: pointer;
+  margin: 3px
 }
