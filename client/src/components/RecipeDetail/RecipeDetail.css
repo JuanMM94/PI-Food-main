@@ -4,14 +4,17 @@
 }
 
 .detail-title {
-
+  position: relative;
 }
 
 .detail-img {
-
+  position: relative;
 }
 
 .detail-summary {
-  top: 6vh;
+  position: relative;
+}
+
+.detail-step {
   position: relative;
 }

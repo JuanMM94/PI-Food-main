@@ -19,10 +19,13 @@ const RecipeDetail = (props) => {
     <>
     <Nav />
     <div className="container-recipedetail" key={recipes.id}>
-      <button onClick={() => history.goBack()}>Back</button>
       <h3 className='detail-title'>{recipes.title}</h3>
       <img className='detail-img' src={recipes.image} alt={recipes.title} />
       <div className='detail-summary' dangerouslySetInnerHTML={{ __html: recipes.summary }} />
+      <div className='detail-step'>{
+        recipes.analyzedInstructions ? recipes.analyzedInstructions[0].steps.map(el => el.step).join(' ') : null
+      }</div>
+      <button onClick={() => history.goBack()}>Back</button>
     </div>
     </>
     
