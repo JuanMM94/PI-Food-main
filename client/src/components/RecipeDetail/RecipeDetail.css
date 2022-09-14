@@ -1,20 +1,24 @@
 .container-recipedetail {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .detail-title {
-  position: relative;
+  
 }
 
 .detail-img {
-  position: relative;
+  width: 500px;
+  height: 300px;
 }
 
 .detail-summary {
-  position: relative;
+  
 }
 
 .detail-step {
-  position: relative;
+  
 }

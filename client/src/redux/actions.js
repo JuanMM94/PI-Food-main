@@ -30,7 +30,6 @@ export const getAllDiets = () => dispatch => {
   return fetch(`http://localhost:3001/api/diets`)
     .then((res) => res.json())
     .then(json => {
-      console.log('dispatch', json);
       dispatch({
         type: GET_ALL_DIETS,
         payload: json

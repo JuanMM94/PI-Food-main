@@ -11,7 +11,7 @@ const Filter = () => {
   const selectRecipes = useSelector(state => state.recipes);
 
   const [currentFilter, setCurrentFilter] = useState([]);
-  let filteredRecipes = [...selectRecipes];
+  let filteredRecipes = [...selectRecipes]; 
 
   useEffect(() => {
     setCurrentFilter(selectRecipes.sort((a, b) => {

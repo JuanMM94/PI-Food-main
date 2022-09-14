@@ -1,0 +1,18 @@
+.container-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text-form li {
+  width: 25%;
+  justify-content: space-between;
+}
+
+.container-checkbox {
+  display: block;
+
+}
+
+.submit-button {
+  
+}

@@ -21,10 +21,12 @@ const RecipeDetail = (props) => {
     <div className="container-recipedetail" key={recipes.id}>
       <h3 className='detail-title'>{recipes.title}</h3>
       <img className='detail-img' src={recipes.image} alt={recipes.title} />
-      <div className='detail-summary' dangerouslySetInnerHTML={{ __html: recipes.summary }} />
-      <div className='detail-step'>{
-        recipes.analyzedInstructions ? recipes.analyzedInstructions[0].steps.map(el => el.step).join(' ') : null
-      }</div>
+      <p className='detail-summary' dangerouslySetInnerHTML={{ __html: recipes.summary }} />
+      <p className='detail-step'>{
+        typeof recipes.analyzedInstructions !== 'undefined' && recipes.analyzedInstructions.length > 0
+        ? recipes.analyzedInstructions[0].steps.map(el => el.step).join(' ') 
+        : null
+      }</p>
       <button onClick={() => history.goBack()}>Back</button>
     </div>
     </>

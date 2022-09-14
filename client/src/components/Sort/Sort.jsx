@@ -8,17 +8,20 @@ const Sort = () => {
 
   const dispatch = useDispatch();
   const selectRecipes = useSelector((state) => state.filterrecipes);
+  const selectAllRecipes = useSelector((state) => state.recipes);
   
   const [currentSort, setCurrentSort] = useState([]);
   const sortedRecipes = [...selectRecipes];
 
   useEffect(() => {
-    setCurrentSort(selectRecipes.sort((a, b) => {
+    setCurrentSort(selectAllRecipes.sort((a, b) => {
       if (a.title < b.title) return -1;
       if (a.title > b.title) return 1;
       return 0;
     }));
   }, []);
+
+  console.log('selectRecipes', selectRecipes);
 
   const sortRecipesLocal = (event) => {
     switch (event.target.value) {
@@ -66,7 +69,7 @@ const Sort = () => {
 
   useEffect(() => {
     dispatch(sortRecipes(currentSort));
-  }, [currentSort, dispatch]);
+  }, [currentSort, dispatch, selectRecipes]);
   
   return (
       

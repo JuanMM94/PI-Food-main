@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createRecipe, getAllDiets } from "../../redux/actions";
 import Nav from "../Nav/Nav";
+import './Form.css';
 
 // import './Home.css';
 
@@ -32,7 +33,7 @@ const Form = () => {
     event.preventDefault();
     if (!form.title || !form.summary) {
       alert('Title and/or summary missing.')
-    } else if (/\b([a-z]+)\b/i.test(form.title) && /^[1-9][0-9]?0?$/.test(form.healthScore)) {
+    } else if (/\b([a-z]+)\b/i.test(form.title) && /^[1-9][0-9]?0?$/.test(form.healthScore) && /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/.test(form.image)) {
       dispatch(createRecipe(form));
       alert('Recipe created!');
       history.goBack();
@@ -65,35 +66,49 @@ const Form = () => {
     <>
     <Nav />
     <form className="container-form">
-      <label>Recipe title:
-        <input type="text" id="title" name="title" value={form.title} onChange={event => handleChange(event)} />
-      </label>
-      <label>Summary:
-        <input type="text" id="summary" name="summary" value={form.summary} onChange={event => handleChange(event)} />
-      </label>
-      <label>Health Score:
-        <input type="number" id="healthScore" name="healthScore" value={form.healthScore} onChange={event => handleChange(event)} />  
-      </label>
-      <label>Steps:
-        <input type="text" id="steps" name="steps" value={form.steps} onChange={event => handleChange(event)} />
-      </label>
-      <label>Image link:
-        <input type="text" id="image" name="image" value={form.image} onChange={event => handleChange(event)} />
-      </label>
-      <span>Pick one or more diets: </span>
+      <ul className="text-form">
+        <li>
+          <label>Recipe title [Must not contain digits or special characters]:
+            <input type="text" id="title" name="title" value={form.title} onChange={event => handleChange(event)} />
+          </label>
+        </li>
+        <li>
+          <label>Summary:
+            <input type="text" id="summary" name="summary" value={form.summary} onChange={event => handleChange(event)} />
+          </label>
+        </li>
+        <li>
+          <label>Health Score [0-100]:
+            <input type="number" id="healthScore" name="healthScore" value={form.healthScore} onChange={event => handleChange(event)} />  
+          </label>
+        </li>
+        <li>
+          <label>Steps:
+            <input type="text" id="steps" name="steps" value={form.steps} onChange={event => handleChange(event)} />
+          </label>
+        </li>
+        <li>
+          <label>Image link [Must be a valid url]:
+            <input type="text" id="image" name="image" value={form.image} onChange={event => handleChange(event)} />
+          </label>
+        </li>
+      </ul>
       <div className="container-checkbox">
-        {
-          allDiets?.map((el, index) => (
-            <li key={index}>
-            <label>
-              <input type="checkbox" onChange={event => handleCheck(event)} value={el.id} />
-              {el.name}
-            </label>
-            </li>
-        )) 
-        }
+      <span>Pick one or more diets: </span>
+        <ul>
+          {
+            allDiets?.map((el, index) => (
+              <li key={index}>
+              <label>
+                <input type="checkbox" onChange={event => handleCheck(event)} value={el.id} />
+                {el.name}
+              </label>
+              </li>
+          )) 
+          }
+        </ul>
       </div>
-      <button onClick={event => handleSubmit(event)}>Submit Recipe</button>
+      <button className="submit-button" onClick={event => handleSubmit(event)}>Submit Recipe</button>
     </form>
     </>
   
