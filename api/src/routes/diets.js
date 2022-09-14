@@ -1,6 +1,4 @@
-const { default: axios } = require('axios');
 const { Router } = require('express');
-const { YOUR_API_KEY } = process.env;
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -12,5 +10,14 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 // ver index.js de api
+
+router.get('/', async (req, res) => {
+  try {
+    const dbGetAll = await Diet.findAll();
+    res.status(200).send(dbGetAll);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;

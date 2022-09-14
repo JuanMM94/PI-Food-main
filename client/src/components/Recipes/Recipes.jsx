@@ -9,12 +9,15 @@ import Filter from '../Filter/Filter';
 import './Recipes.css';
 
 export class Recipes extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
       loading: true,
-      query: ''
-    }
+      query: '',
+      setrecipes: props.setrecipes,
+      sortrecipes: props.sortrecipes,
+      filterrecipes: props.filterrecipes
+    };
   };
 
   componentDidUpdate() {
@@ -24,9 +27,9 @@ export class Recipes extends Component {
   componentDidMount() {
     this.props.getAllRecipes();
   };
-  
 
   render() {
+    
 
     if (this.state.loading) return <div className='loading'><p>Loading...</p></div>;
 
@@ -34,13 +37,13 @@ export class Recipes extends Component {
       <>
         <Nav />
         <div className='container-searchbar'>
+          <Filter />
           <Sort />
           <div className='searchbar'>
           <label htmlFor='search'>Search recipes:</label>
           <input type='text' id='search' className='searchbar-input' value={this.state.query || ''} onChange={event => this.setState({ query: event.target.value })} />
           </div>
         </div>
-        <Filter />
         <div className="container-recipes">
          {
             this.state.query 
@@ -73,14 +76,15 @@ export const mapStateToProps = (state) => {
   return {
       recipes: state.recipes,
       setrecipes: state.setrecipes,
-      filterrecipes: state.filterrecipes
-  }
+      filterrecipes: state.filterrecipes,
+      sortrecipes: state.sortrecipes
+  };
 };
 
 export const mapDispatchToProps = (dispatch) => {
   return {
       getAllRecipes: () => dispatch(getAllRecipes()),
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

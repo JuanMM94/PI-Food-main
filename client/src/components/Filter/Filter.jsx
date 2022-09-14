@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterRecipes } from "../../redux/actions";
 import { glutenFree, ketogenic, lactoOvoVegetarian, vegan, pescetarian, paleo, primal, lowFODMAP, whole30 } from "../../utils/constants";
 import './Filter.css';
@@ -8,19 +8,31 @@ import './Filter.css';
 const Filter = () => {
 
   const dispatch = useDispatch();
-  const [value, setValue] = useState([]);
+  const selectRecipes = useSelector(state => state.recipes);
+
+  const [currentFilter, setCurrentFilter] = useState([]);
+  let filteredRecipes = [...selectRecipes];
+
+  useEffect(() => {
+    setCurrentFilter(selectRecipes.sort((a, b) => {
+      if (a.title < b.title) return -1;
+      if (a.title > b.title) return 1;
+      return 0;
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   function filterRecipesLocal (event) {
     if (event.target.checked) {
-      setValue([...value, event.target.value]);
+      setCurrentFilter(filteredRecipes.filter(el => el.diets.includes(event.target.value)));
     } else if (!event.target.checked) {
-      setValue(value.filter(el => el !== event.target.value));
+      setCurrentFilter([...selectRecipes]);
     };
-  }
+  };
 
   useEffect(() => {
-    dispatch(filterRecipes(value));
-  }, [dispatch, value])
+    dispatch(filterRecipes(currentFilter));
+  }, [dispatch, currentFilter]);
 
   return (
       

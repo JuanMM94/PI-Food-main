@@ -70,15 +70,28 @@ router.get('/:recipeId', async (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-  const { title, summary, healthScore, analyzedInstructions, image } = req.body;
+  const { title, summary, healthScore, steps, image, diets } = req.body;
   try {
     const newRecipe = await Recipe.create({
       title,
       summary,
       healthScore,
-      analyzedInstructions,
+      steps,
       image
     });
+    if (diets) {
+      const newRecipeDiets = [...diets];
+      const newRecipeId = Recipe.findAll({
+        where: {
+          title: {
+            [Op.eq]: title
+          }
+        }
+      });
+      newRecipeId.then(res => {
+        newRecipeDiets.forEach(el => axios.post(`http://localhost:3001/api/recipes/${res[0].dataValues.id}/diets/${el}`))
+      });
+    };
     res.status(201).json(newRecipe);
   } catch (error) {
     console.log(error);
@@ -89,13 +102,13 @@ router.post('/create', async (req, res) => {
 router.post('/:recipeId/diets/:dietsId', async (req, res) => {
   try {
     const { recipeId, dietsId } = req.params;
-    const recipe = await Recipe.findByPk(recipeId)
+    const recipe = await Recipe.findByPk(recipeId);
     await recipe.addDiet(dietsId);
-    res.sendStatus(200)
+    res.sendStatus(201);
   } catch (error) {
     console.log(error);
     res.sendStatus(404);
   }
-})
+});
 
 module.exports = router;

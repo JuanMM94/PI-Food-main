@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { sortRecipes } from "../../redux/actions";
 import { alphabeticalAscending, alphabeticalDescending, healthScoreAscending, healthScoreDescending } from "../../utils/constants";
 import './Sort.css';
@@ -7,15 +7,67 @@ import './Sort.css';
 const Sort = () => {
 
   const dispatch = useDispatch();
+  const selectRecipes = useSelector((state) => state.filterrecipes);
+  
+  const [currentSort, setCurrentSort] = useState([]);
+  const sortedRecipes = [...selectRecipes];
 
   useEffect(() => {
-    dispatch(sortRecipes());
-  }, [dispatch]);
+    setCurrentSort(selectRecipes.sort((a, b) => {
+      if (a.title < b.title) return -1;
+      if (a.title > b.title) return 1;
+      return 0;
+    }));
+  }, []);
 
-  function sortRecipesLocal (event) {
-    dispatch(sortRecipes(event.target.value));
+  const sortRecipesLocal = (event) => {
+    switch (event.target.value) {
+      case alphabeticalAscending:
+        sortedRecipes.sort((a, b) => {
+          if (a.title < b.title) return -1;
+          if (a.title > b.title) return 1;
+          return 0;
+        });
+        break;
+
+      case alphabeticalDescending:
+        sortedRecipes.sort((a, b) => {
+          if (a.title < b.title) return 1;
+          if (a.title > b.title) return -1;
+          return 0;
+        });
+        break;
+
+      case healthScoreAscending:
+        sortedRecipes.sort((a, b) => {
+          if (a.healthScore < b.healthScore) return -1;
+          if (a.healthScore > b.healthScore) return 1;
+          return 0;
+        });
+        break;
+
+        case healthScoreDescending:
+          sortedRecipes.sort((a, b) => {
+            if (a.healthScore < b.healthScore) return 1;
+            if (a.healthScore > b.healthScore) return -1;
+            return 0;
+          });
+          break;
+
+      default:
+        sortedRecipes.sort((a, b) => {
+          if (a.title < b.title) return -1;
+          if (a.title > b.title) return 1;
+          return 0;
+        });
+    };
+    setCurrentSort(sortedRecipes);
   };
 
+  useEffect(() => {
+    dispatch(sortRecipes(currentSort));
+  }, [currentSort, dispatch]);
+  
   return (
       
       <div className="container-sort">

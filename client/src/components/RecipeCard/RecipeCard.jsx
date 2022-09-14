@@ -10,7 +10,12 @@ const RecipeCard = ({ renderRecipe }) => {
   // if (recipe.vegetarian) renderDiets.push('Vegetarian');
   // if (recipe.vegan) renderDiets.push('Vegan');
   // if (recipe.glutenFree) renderDiets.push('Gluten Free');
-  recipe.diets.forEach((el) => renderDiets.push(`${el[0].toUpperCase()}${el.slice(1)}`))
+  const recipeId = recipe.id;
+  if (recipeId.toString().includes('-')) {
+    recipe.diets.forEach(el => renderDiets.push(el.name))
+  } else if (/\d*/.test(recipeId)) {
+    recipe.diets.forEach((el) => renderDiets.push(`${el[0].toUpperCase()}${el.slice(1)}`));
+  };
 
   return (
 
