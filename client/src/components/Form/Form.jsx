@@ -100,7 +100,7 @@ const Form = () => {
       <ul className="text-form">
         <li>
           <label>Recipe title: 
-            <input type="text" id="title" name="title" value={form.title} onChange={event => handleChange(event)} />
+            <input type="text" id="title" name="title" value={form.title || ''} onChange={event => handleChange(event)} />
           </label>{
             titleError
             ? <p className="error">Must not contain digits or special characters</p>
@@ -109,7 +109,7 @@ const Form = () => {
         </li>
         <li>
           <label>Summary: 
-            <input type="text" id="summary" name="summary" value={form.summary} onChange={event => handleChange(event)} />
+            <input type="text" id="summary" name="summary" value={form.summary || ''} onChange={event => handleChange(event)} />
           </label>{
             summaryError
             ? <p className="error">Must not contain digits or special characters</p>
@@ -118,7 +118,7 @@ const Form = () => {
         </li>
         <li>
           <label>Health Score: 
-            <input type="number" id="healthScore" name="healthScore" value={form.healthScore} onChange={event => handleChange(event)} />  
+            <input type="number" id="healthScore" name="healthScore" value={form.healthScore || 0} onChange={event => handleChange(event)} />  
           </label>{
             hsError
             ? <p className="error">Must be a digit between 1 and 100</p>
@@ -127,12 +127,12 @@ const Form = () => {
         </li>
         <li>
           <label>Steps: 
-            <input type="text" id="steps" name="steps" value={form.steps} onChange={event => handleChange(event)} />
+            <input type="text" id="steps" name="steps" value={form.steps || ''} onChange={event => handleChange(event)} />
           </label>
         </li>
         <li>
           <label>Image link: 
-            <input type="text" id="image" name="image" value={form.image} onChange={event => handleChange(event)} />
+            <input type="text" id="image" name="image" value={form.image || ''} onChange={event => handleChange(event)} />
           </label>{
             imgError
             ? <p className="error">Must be a valid url. Allowed formats are png, jpg, jpeg</p>

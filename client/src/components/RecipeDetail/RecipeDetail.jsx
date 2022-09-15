@@ -14,13 +14,13 @@ const RecipeDetail = (props) => {
     dispatch(getRecipe(props.match.params.idRecipe));
   }, [dispatch, props.match.params.idRecipe]);
 
-  console.log('img', recipes);
   return (
     
     <>
     <Nav />
     <div className="container-recipedetail" key={recipes.id}>
-      <h3 className='detail-title'>{recipes.title}</h3>
+      <h1 className='detail-title'>{recipes.title}</h1>
+      <p className='detail-healthscore'>Health Score <sup>{recipes.healthScore}</sup></p>
       <img className='detail-img' src={recipes.image} alt={recipes.title} />
       <p className='detail-summary' dangerouslySetInnerHTML={{ __html: recipes.summary }} />
       <p className='detail-step'>{
@@ -28,7 +28,7 @@ const RecipeDetail = (props) => {
         ? recipes.analyzedInstructions[0].steps.map(el => el.step).join(' ') 
         : null
       }</p>
-      <button onClick={() => history.goBack()}>Back</button>
+      <button className='detail-button' onClick={() => history.goBack()}>Back</button>
     </div>
     </>
     
