@@ -1,5 +1,5 @@
 .container-nav {
-  background-color:cadetblue; 
+  background-color: blanchedalmond; 
   list-style-type: none;
   text-align: center;
   margin: 0;
@@ -10,17 +10,19 @@
   display: inline-block;
   font-size: 20px;
   padding: 20px;
-  width: 15%;
+  width: fit-content;
 }
 
 .container-nav li a {
+  float: left;
+  color: grey;
+  text-align: center;
+  padding: 20px;
   text-decoration: none;
-  padding: 7%;
-  border: 10px;
-  background-color:dodgerblue;
-  transition: .2s all;
+  font-size: 17px;
 }
 
 .container-nav li a:hover {
-  background-color:aliceblue;
+  background-color: whitesmoke;
+  color: black;
 }

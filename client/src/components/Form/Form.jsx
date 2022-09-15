@@ -60,7 +60,7 @@ const Form = () => {
     else setImgError(true);
     if (/(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|png))/.test(form.image)) setImgError(false);
     else setImgError(true);
-    
+
     setForm({
       ...form,
       [event.target.name]: event.target.value
@@ -144,7 +144,7 @@ const Form = () => {
           }
         </ul>
       </div>
-      <button className="submit-button" onClick={event => handleSubmit(event)}>Submit Recipe</button>
+      <input type="submit" className="submit" onClick={event => handleSubmit(event)} value="Submit" />
     </form>
     </>
   

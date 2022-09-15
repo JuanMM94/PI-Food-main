@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { sortRecipes } from "../../redux/actions";
 import { alphabeticalAscending, alphabeticalDescending, healthScoreAscending, healthScoreDescending } from "../../utils/constants";
 import './Sort.css';
