@@ -19,7 +19,11 @@ const Form = () => {
 
   const selectAllDiets = useSelector(state => state.diets);
   const allDiets = [...selectAllDiets];
-  
+
+  const [titleError, setTitleError] = useState(true);
+  const [summaryError, setSummaryError] = useState(true);
+  const [hsError, setHsError] = useState(true);
+  const [imgError, setImgError] = useState(true);
   const [form, setForm] = useState({
     title: '',
     summary: '',
@@ -31,16 +35,32 @@ const Form = () => {
 
   function handleSubmit (event) {
     event.preventDefault();
-    if (!form.title || !form.summary) {
-      alert('Title and/or summary missing.')
-    } else if (/\b([a-z]+)\b/i.test(form.title) && /^[1-9][0-9]?0?$/.test(form.healthScore) && /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/.test(form.image)) {
+    if (form.title.trim() === "") {
+      alert("You must include a title.");
+      return;
+    };
+    if (form.summary.trim() === "") {
+      alert("You must include a summary.");
+      return;
+    };
+    if (titleError || summaryError || hsError || imgError) alert("Check the format of your submission.")
+    else {
       dispatch(createRecipe(form));
       alert('Recipe created!');
       history.goBack();
-    } else alert('Check the format of your submission.');
+    }
   };
 
   function handleChange (event) {   
+    if (/^[a-zA-Z ]*$/i.test(form.title)) setTitleError(false);
+    else setTitleError(true);
+    if (/^[a-zA-Z ]*$/i.test(form.summary)) setSummaryError(false);
+    else setSummaryError(true);
+    if (/^[1-9][0-9]?0?$/.test(form.healthScore)) setHsError(false);
+    else setImgError(true);
+    if (/(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|png))/.test(form.image)) setImgError(false);
+    else setImgError(true);
+    
     setForm({
       ...form,
       [event.target.name]: event.target.value
@@ -68,33 +88,49 @@ const Form = () => {
     <form className="container-form">
       <ul className="text-form">
         <li>
-          <label>Recipe title [Must not contain digits or special characters]:
+          <label>Recipe title: 
             <input type="text" id="title" name="title" value={form.title} onChange={event => handleChange(event)} />
-          </label>
+          </label>{
+            titleError
+            ? <p className="error">Must not contain digits or special characters</p>
+            : null
+          }
         </li>
         <li>
-          <label>Summary:
+          <label>Summary: 
             <input type="text" id="summary" name="summary" value={form.summary} onChange={event => handleChange(event)} />
-          </label>
+          </label>{
+            summaryError
+            ? <p className="error">Must not contain digits or special characters</p>
+            : null
+          }
         </li>
         <li>
-          <label>Health Score [0-100]:
+          <label>Health Score [0-100]: 
             <input type="number" id="healthScore" name="healthScore" value={form.healthScore} onChange={event => handleChange(event)} />  
-          </label>
+          </label>{
+            hsError
+            ? <p className="error">Must be a digit between 1 and 100</p>
+            : null
+          }
         </li>
         <li>
-          <label>Steps:
+          <label>Steps: 
             <input type="text" id="steps" name="steps" value={form.steps} onChange={event => handleChange(event)} />
           </label>
         </li>
         <li>
-          <label>Image link [Must be a valid url]:
+          <label>Image link: 
             <input type="text" id="image" name="image" value={form.image} onChange={event => handleChange(event)} />
-          </label>
+          </label>{
+            imgError
+            ? <p className="error">Must be a valid url. Allowed formats are png, jpg, jpeg</p>
+            : null
+          }
         </li>
       </ul>
       <div className="container-checkbox">
-      <span>Pick one or more diets: </span>
+      <span>Does it belong to any of these diets?</span>
         <ul>
           {
             allDiets?.map((el, index) => (

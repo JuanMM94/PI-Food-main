@@ -14,9 +14,8 @@ export class Recipes extends Component {
     this.state = {
       loading: true,
       query: '',
-      setrecipes: props.setrecipes,
-      sortrecipes: props.sortrecipes,
-      filterrecipes: props.filterrecipes
+      recipes: props.recipes,
+      setrecipes: props.setrecipes
     };
   };
 
@@ -76,8 +75,6 @@ export const mapStateToProps = (state) => {
   return {
       recipes: state.recipes,
       setrecipes: state.setrecipes,
-      filterrecipes: state.filterrecipes,
-      sortrecipes: state.sortrecipes
   };
 };
 

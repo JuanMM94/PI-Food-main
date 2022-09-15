@@ -13,11 +13,12 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const axiosGetAll = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=10`);
+    const axiosGetAll = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100`);
     if (req.query.name) {
       const dbGetTitle = await Recipe.findAll({
         include: [{
-          model: Diet
+          model: Diet,
+          attributes: ['name']
         }],
         where: {
           title: {
@@ -30,17 +31,19 @@ router.get('/', async (req, res) => {
       if (response.length > 0) res.status(200).send(response);
       else res.status(404).send(`Recipes containing ${req.query.name} not found.`);
     } else {
-      const dbGetAll = await Recipe.findAll({
+      let dbGetAll = await Recipe.findAll({
         include: [{
-          model: Diet
+          model: Diet,
+          attributes: ['name']
         }]
       });
-        const result = Promise.all([axiosGetAll.data.results, dbGetAll]);
-        result.then(([a, b]) => {
-          const response = [...a,...b];
-          res.status(200).send(response);
-        });
-    }
+          
+      const result = Promise.all([axiosGetAll.data.results, dbGetAll]);
+      result.then(([a, b]) => {
+        const response = [...a,...b];
+        res.status(200).send(response);
+      });
+    };
   } catch (error) {
     console.log(error);
     res.sendStatus(404);
@@ -51,14 +54,8 @@ router.get('/:recipeId', async (req, res) => {
   const { recipeId } = req.params;
   try {
     if (recipeId.includes('-')) {
-      const dbGetId = await Recipe.findAll({ // podría usar findByPk
-        where: {
-          id: {
-            [Op.eq]: recipeId
-          }
-        }
-      });
-      dbGetId.then(res.status(200).send(dbGetId));
+      const dbGetId = await Recipe.findByPk(recipeId);
+      res.status(200).send(dbGetId);
     } else {
       const axiosGetId = await axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${YOUR_API_KEY}`);
       res.status(200).send(axiosGetId.data);  

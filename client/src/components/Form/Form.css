@@ -4,13 +4,17 @@
 }
 
 .text-form li {
-  width: 25%;
-  justify-content: space-between;
+  width: 100%;
+  
 }
 
 .container-checkbox {
   display: block;
 
+}
+
+.error {
+  color: red;
 }
 
 .submit-button {

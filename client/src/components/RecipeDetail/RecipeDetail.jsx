@@ -14,6 +14,7 @@ const RecipeDetail = (props) => {
     dispatch(getRecipe(props.match.params.idRecipe));
   }, [dispatch, props.match.params.idRecipe]);
 
+  console.log('img', recipes);
   return (
     
     <>

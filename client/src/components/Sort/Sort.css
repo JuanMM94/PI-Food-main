@@ -1,7 +1,10 @@
 .container-sort {
-  display: flex;
-  width: 25%;
-  justify-content: space-between;
+  width: fit-content;
+  
+}
+
+.label-sort {
+  margin-right: 1vw;
 }
 
 .container-sort select {
