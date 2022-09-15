@@ -51,7 +51,7 @@ const Form = () => {
     }
   };
 
-  function handleChange (event) {   
+  const handleChange = (event) => {   
     if (/^[a-zA-Z ]*$/i.test(form.title)) setTitleError(false);
     else setTitleError(true);
     if (/^[a-zA-Z ]*$/i.test(form.summary)) setSummaryError(false);
@@ -81,6 +81,17 @@ const Form = () => {
     };
   };
 
+  useEffect(() => {
+    if (/^[a-zA-Z ]*$/i.test(form.title)) setTitleError(false);
+    else setTitleError(true);
+    if (/^[a-zA-Z ]*$/i.test(form.summary)) setSummaryError(false);
+    else setSummaryError(true);
+    if (/^[1-9][0-9]?0?$/.test(form.healthScore)) setHsError(false);
+    else setImgError(true);
+    if (/(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|png))/.test(form.image)) setImgError(false);
+    else setImgError(true);
+  }, [form.healthScore, form.image, form.summary, form.title])
+
   return (
     
     <>
@@ -106,7 +117,7 @@ const Form = () => {
           }
         </li>
         <li>
-          <label>Health Score [0-100]: 
+          <label>Health Score: 
             <input type="number" id="healthScore" name="healthScore" value={form.healthScore} onChange={event => handleChange(event)} />  
           </label>{
             hsError
