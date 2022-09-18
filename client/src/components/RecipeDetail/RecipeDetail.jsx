@@ -26,6 +26,8 @@ const RecipeDetail = (props) => {
       <p className='detail-step'>{
         typeof recipes.analyzedInstructions !== 'undefined' && recipes.analyzedInstructions.length > 0
         ? recipes.analyzedInstructions[0].steps.map(el => el.step).join(' ') 
+        : recipes.steps && recipes.steps.length > 0
+        ? recipes.steps
         : null
       }</p>
       <button className='detail-button' onClick={() => history.goBack()}>Back</button>
