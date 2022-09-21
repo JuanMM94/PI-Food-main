@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllRecipes } from '../../redux/actions';
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Nav from '../Nav/Nav';
 import Pagination from '../Pagination/Pagination';
 import Sort from '../Sort/Sort';
 import Filter from '../Filter/Filter';
 import './Recipes.css';
+import Search from '../Search/Search';
 
 export class Recipes extends Component {
   constructor(props) {
@@ -15,16 +15,12 @@ export class Recipes extends Component {
       loading: true,
       query: '',
       recipes: props.recipes,
-      setrecipes: props.setrecipes
+      setrecipes: props.setrecipes,
     };
   };
 
   componentDidUpdate() {
     if (this.state.loading) this.setState({loading: false});
-  };
-
-  componentDidMount() {
-    this.props.getAllRecipes();
   };
 
   render() {
@@ -38,24 +34,11 @@ export class Recipes extends Component {
         <div className='container-searchbar'>
           <Filter />
           <Sort />
-          <div className='searchbar'>
-          <label htmlFor='search'>Search recipes:</label>
-          <input type='text' id='search' className='searchbar-input' value={this.state.query || ''} onChange={event => this.setState({ query: event.target.value })} />
-          </div>
+          <Search />
         </div>
         <div className="container-recipes">
          {
-            this.state.query 
-          ? this.props.recipes &&
-            this.props.recipes
-            .filter(el => el.title.toLowerCase().includes(this.state.query.toLowerCase()))
-            .map( (renderRecipe, index) => 
-                <RecipeCard
-                  key={index}
-                  renderRecipe={renderRecipe}
-                  />
-            )
-          : this.props.setrecipes &&
+            this.props.setrecipes &&
             this.props.setrecipes
             .map( (renderRecipe, index) => 
               <RecipeCard
@@ -78,10 +61,10 @@ export const mapStateToProps = (state) => {
   };
 };
 
-export const mapDispatchToProps = (dispatch) => {
+/* export const mapDispatchToProps = (dispatch) => {
   return {
       getAllRecipes: () => dispatch(getAllRecipes()),
   };
-};
+}; */
 
-export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
+export default connect(mapStateToProps, null)(Recipes);

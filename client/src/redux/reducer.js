@@ -13,6 +13,11 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_RECIPES:
+      if (action.payload) {
+        state.recipes
+        .filter(el => el.title.toLowerCase().includes(this.state.query.toLowerCase()));
+      } else return state.recipes;
+      
       return {
         ...state,
         recipes: action.payload,
