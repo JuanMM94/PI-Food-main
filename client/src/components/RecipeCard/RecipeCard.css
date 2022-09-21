@@ -1,3 +1,8 @@
+:root {
+  --background-color: rgb(179, 92, 34);
+  --color: whitesmoke;
+}
+
 .background-image {
   width: 312px;
   height: 231px;
@@ -15,12 +20,21 @@
 
 .title {
   font-size: small;
-  color: aliceblue;
-  background-color: darkblue;
+  color: var(--color);
+  background-color: var(--background-color);
 }
 
 .diets {
   font-size: x-small;
-  color: aliceblue;
-  background-color: darkblue;
+  color: var(--color);
+  background-color: var(--background-color);
+}
+
+.healthscore {
+  font-size: x-small;
+  color: var(--color);
+  background-color: var(--background-color);
+  width: fit-content;
+  position: relative;
+  left: 50%;
 }

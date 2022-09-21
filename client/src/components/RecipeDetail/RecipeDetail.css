@@ -1,4 +1,39 @@
 .container-recipedetail {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2%;
+}
+
+.detail-title {
+  margin-bottom: 10px;
+}
+
+.detail-img {
+  width: 500px;
+  height: 300px;
+  position: relative;
+  border-radius: 7%;
+}
+
+.detail-healthscore {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.detail-button {
+  cursor: pointer;
+  background-color:blanchedalmond;
+  color: grey;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.detail-button:hover {
+  background-color: whitesmoke;
 }

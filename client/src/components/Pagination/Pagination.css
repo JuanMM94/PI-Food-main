@@ -1,8 +1,20 @@
 .container-pagination {
+  display: flex;
+  justify-content: center;
   position: relative;
-  left: 50vw;  
 }
 
 .button-pagination {
   cursor: pointer;
+  background-color:blanchedalmond;
+  color: grey;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-pagination:hover {
+  background-color: whitesmoke;
 }

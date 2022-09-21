@@ -5,22 +5,20 @@ import './Pagination.css';
 
 const Pagination = () => {
   
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 9;
-
-  const recipes = useSelector((state) => state.recipes)
   const dispatch = useDispatch();
-
+  const selectFilteredRecipes = useSelector((state) => state.filterrecipes);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const postsPerPage = 9;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const totalPages = Math.ceil(recipes.length / postsPerPage);
+  const totalPages = Math.ceil(selectFilteredRecipes.length / postsPerPage);
   // const currentPosts = recipes.slice(indexOfFirstPost, indexOfLastPost);
 
-
-
   useEffect(() => {
-    dispatch(setRecipes(recipes.slice(indexOfFirstPost, indexOfLastPost)));
-  }, [dispatch, indexOfFirstPost, indexOfLastPost, recipes]);
+    dispatch(setRecipes(selectFilteredRecipes.slice(indexOfFirstPost, indexOfLastPost)));
+  }, [dispatch, indexOfFirstPost, indexOfLastPost, selectFilteredRecipes]);
   
   function buttonClick (num) {
     setCurrentPage(num);
