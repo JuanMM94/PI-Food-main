@@ -1,16 +1,14 @@
 import React from "react";
-import './Home.css';
-
+import "./Home.css";
 
 const Home = () => {
-
   return (
-      
-      <div className="container-home">
-        <a className="button-home" href="/recipes">Enter</a>
-      </div>
-  
-  )
+    <div className="container-home">
+      <a className="button-home" href="/recipes">
+        Enter
+      </a>
+    </div>
+  );
 };
 
 export default Home;

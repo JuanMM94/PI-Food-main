@@ -19,13 +19,12 @@
 }
 
 .detail-healthscore {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .detail-button {
   cursor: pointer;
-  background-color:blanchedalmond;
+  background-color: blanchedalmond;
   color: grey;
   padding: 14px 20px;
   margin: 8px 0;

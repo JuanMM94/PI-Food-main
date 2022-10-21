@@ -17,16 +17,26 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn, Diet } = require('./src/db.js');
+const server = require("./src/app.js");
+const { conn, Diet } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
   });
-  const dietsPreload = [{name: "Gluten Free"}, {name: "Ketogenic"}, {name: "Lacto Ovo Vegetarian"}, {name: "Vegan"}, {name: "Pescetarian"}, {name: "Paleo"}, {name: "Primal"}, {name: "Low FODMAP"}, {name: "Whole30"}];
+  const dietsPreload = [
+    { name: "Gluten Free" },
+    { name: "Ketogenic" },
+    { name: "Lacto Ovo Vegetarian" },
+    { name: "Vegan" },
+    { name: "Pescetarian" },
+    { name: "Paleo" },
+    { name: "Primal" },
+    { name: "Low FODMAP" },
+    { name: "Whole30" },
+  ];
   Diet.bulkCreate(dietsPreload)
-  .then(console.log('Diets have been preloaded succesfully'))
-  .catch((error) => console.log('Error in Diets preload', error))
+    .then(console.log("Diets have been preloaded succesfully"))
+    .catch((error) => console.log("Error in Diets preload", error));
 });

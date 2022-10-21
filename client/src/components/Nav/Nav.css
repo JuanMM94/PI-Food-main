@@ -1,9 +1,12 @@
 .container-nav {
   background-color: blanchedalmond; 
-  list-style-type: none;
   text-align: center;
+}
+
+.container-nav ul {
   margin: 0;
   padding: 0;
+  list-style-type: none;
 }
 
 .container-nav li {
@@ -23,6 +26,5 @@
 }
 
 .container-nav li a:hover {
-  background-color: whitesmoke;
-  color: black;
+  text-decoration: underline;
 }

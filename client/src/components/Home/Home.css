@@ -1,8 +1,8 @@
 .container-home {
-  background-image: url('food-background.jpg');
+  background-image: url("food-background.jpg");
   background-size: cover;
-  position: fixed; 
-  top: 0; 
+  position: fixed;
+  top: 0;
   left: 0;
   min-width: 100%;
   min-height: 100%;
@@ -10,7 +10,7 @@
 
 .button-home {
   background-color: rgb(187, 201, 212);
-  border: 0 solid #E5E7EB;
+  border: 0 solid #e5e7eb;
   box-sizing: border-box;
   color: black;
   display: flex;
@@ -43,7 +43,7 @@
 }
 
 .button-home:after {
-  content: '';
+  content: "";
   position: absolute;
   border: 1px solid #000000;
   bottom: 4px;

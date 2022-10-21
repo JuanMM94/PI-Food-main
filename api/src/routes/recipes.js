@@ -13,7 +13,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const axiosGetAll = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100`);
+    const axiosGetAll = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100  `);
     if (req.query.name) {
       const dbGetTitle = await Recipe.findAll({
         include: [{

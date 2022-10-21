@@ -5,3 +5,4 @@ export const CREATE_RECIPE = "CREATE_RECIPE";
 export const SET_RECIPES = "SET_RECIPES";
 export const SORT_RECIPES = "SORT_RECIPES";
 export const FILTER_RECIPES = "FILTER_RECIPES";
+export const SEARCH_RECIPES = "SEARCH_RECIPES";

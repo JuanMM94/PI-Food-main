@@ -1,13 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import RecipeCard from '../RecipeCard/RecipeCard';
-import Nav from '../Nav/Nav';
-import Pagination from '../Pagination/Pagination';
-import Sort from '../Sort/Sort';
-import Filter from '../Filter/Filter';
-import './Recipes.css';
-import Search from '../Search/Search';
+import { useSelector } from "react-redux";
+import Search from "../Search/Search";
+import RecipeCard from "../RecipeCard/RecipeCard";
+import Nav from "../Nav/Nav";
+import Pagination from "../Pagination/Pagination";
+import Sort from "../Sort/Sort";
+import Filter from "../Filter/Filter";
+import "./Recipes.css";
 
+const Recipes = () => {
+  const selectSetRecipes = useSelector((state) => state.setrecipes);
+
+  return (
+    <>
+      <Nav />
+      <div className="container-searchbar">
+        <Filter />
+        <Sort />
+        <Search />
+      </div>
+      <div className="container-recipes">
+        {selectSetRecipes &&
+          selectSetRecipes.map((renderRecipe, index) => (
+            <RecipeCard key={index} renderRecipe={renderRecipe} />
+          ))}
+      </div>
+      <Pagination recipes={selectSetRecipes} />
+    </>
+  );
+};
+
+export default Recipes;
+
+/* 
 export class Recipes extends Component {
   constructor(props) {
     super()
@@ -22,6 +46,10 @@ export class Recipes extends Component {
   componentDidUpdate() {
     if (this.state.loading) this.setState({loading: false});
   };
+
+  componentDidMount() {
+
+  }
 
   render() {
     
@@ -61,10 +89,11 @@ export const mapStateToProps = (state) => {
   };
 };
 
-/* export const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return {
       getAllRecipes: () => dispatch(getAllRecipes()),
   };
-}; */
+};
 
 export default connect(mapStateToProps, null)(Recipes);
+ */

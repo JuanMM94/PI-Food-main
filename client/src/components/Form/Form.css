@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 
-.container-form input[type=text] {
+.container-form input[type="text"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -27,7 +27,6 @@
 
 .container-checkbox {
   display: block;
-
 }
 
 .error {
@@ -36,7 +35,7 @@
 
 .submit {
   width: 100%;
-  background-color:blanchedalmond;
+  background-color: blanchedalmond;
   color: grey;
   padding: 14px 20px;
   margin: 8px 0;
