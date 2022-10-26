@@ -31,6 +31,8 @@
 .container-recipes {
   display: flex;
   flex-wrap: wrap;
-  margin: 1vw;
+  margin: auto;
   row-gap: 1vw;
+  position: relative;
+  justify-content: center;
 }

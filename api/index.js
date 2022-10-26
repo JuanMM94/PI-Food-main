@@ -18,25 +18,39 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
-const { conn, Diet } = require("./src/db.js");
+const axios = require("axios");
+const { conn, Diet, Recipe } = require("./src/db.js");
+const { YOUR_API_KEY } = process.env;
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
     console.log("%s listening at 3001"); // eslint-disable-line no-console
   });
-  const dietsPreload = [
-    { name: "Gluten Free" },
-    { name: "Ketogenic" },
-    { name: "Lacto Ovo Vegetarian" },
-    { name: "Vegan" },
-    { name: "Pescetarian" },
-    { name: "Paleo" },
-    { name: "Primal" },
-    { name: "Low FODMAP" },
-    { name: "Whole30" },
-  ];
-  Diet.bulkCreate(dietsPreload)
-    .then(console.log("Diets have been preloaded succesfully"))
-    .catch((error) => console.log("Error in Diets preload", error));
+  const preload = async () => {
+    const dietsPreload = [
+      { name: "Gluten Free" },
+      { name: "Ketogenic" },
+      { name: "Lacto Ovo Vegetarian" },
+      { name: "Vegan" },
+      { name: "Pescetarian" },
+      { name: "Paleo" },
+      { name: "Primal" },
+      { name: "Low FODMAP" },
+      { name: "Whole30" },
+    ];
+    const recipeFindAll = await Recipe.findAll();
+    if (recipeFindAll.length === 0) {
+      const axiosGetAll = await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=1`
+      );
+      axiosGetAll.data.results.forEach((element) => {
+        return Recipe.findOrCreate(element);
+      });
+    }
+    Diet.bulkCreate(dietsPreload)
+      .then(console.log("Diets have been preloaded succesfully"))
+      .catch((error) => console.log("Error in Diets preload", error));
+  };
+  preload();
 });
