@@ -19,30 +19,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn, Diet } = require('./src/db.js');
-const path = require('path');
-const express = require('express');
-const app = express();
-
-const PORT = process.env.PORT || 3001
-
-// Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-// Handle GET requests to /api route
-app.get("/api", (req, res) => {
-  res.sendStatus(200);
-});
-
-// All other GET requests not handled before will return our React app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-});
-
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`);
+  server.listen(3001, () => {
+    console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
   const dietsPreload = [{name: "Gluten Free"}, {name: "Ketogenic"}, {name: "Lacto Ovo Vegetarian"}, {name: "Vegan"}, {name: "Pescetarian"}, {name: "Paleo"}, {name: "Primal"}, {name: "Low FODMAP"}, {name: "Whole30"}];
   Diet.bulkCreate(dietsPreload)
