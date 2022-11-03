@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
         "Ketogenic",
         "Lacto Ovo Vegetarian",
         "Vegan",
-        "Pescetarian",
+        "Pescatarian",
         "Paleo",
         "Primal",
         "Low FODMAP",

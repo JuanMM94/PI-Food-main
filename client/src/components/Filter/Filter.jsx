@@ -6,7 +6,7 @@ import {
   ketogenic,
   lactoOvoVegetarian,
   vegan,
-  pescetarian,
+  pescatarian,
   paleo,
   primal,
   lowFODMAP,
@@ -46,8 +46,8 @@ const Filter = () => {
         <option value={vegan} id={vegan}>
           Vegan
         </option>
-        <option value={pescetarian} id={pescetarian}>
-          Pescetarian
+        <option value={pescatarian} id={pescatarian}>
+          Pescatarian
         </option>
         <option value={paleo} id={paleo}>
           Paleo
