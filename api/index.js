@@ -48,24 +48,56 @@ conn.sync({ force: false }).then(() => {
         .catch((error) => console.log("Error in Diets preload", error));
     } else console.log("Diets already exist in the database");
     if (recipesCountAll !== recipesAmount) {
-      const getAllRecipes = await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=${recipesAmount}`
-      );
-      const recipesArray = [];
-      getAllRecipes.data.results.forEach((element) => {
-        recipesArray.push({
-          title: element.title,
-          summary: element.summary,
-          healthScore: element.healthScore,
-          steps: element.analyzedInstructions[0]
-            ? JSON.stringify(element.analyzedInstructions[0].steps)
-            : null,
-          image: element.image,
+      try {
+        const getAllRecipes = await axios.get(
+          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=${recipesAmount}`
+        );
+        getAllRecipes.data.results.forEach(async (element) => {
+          const recipe = await Recipe.create({
+            title: element.title,
+            summary: element.summary,
+            healthScore: element.healthScore,
+            steps: element.analyzedInstructions[0]
+              ? JSON.stringify(element.analyzedInstructions[0].steps)
+              : null,
+            image: element.image,
+          });
+          for (let i in element.diets) {
+            switch (element.diets[i]) {
+              case "gluten free":
+                await recipe.addDiet(1);
+                break;
+              case "ketogenic":
+                await recipe.addDiet(2);
+                break;
+              case "lacto ovo vegetarian":
+                await recipe.addDiet(3);
+                break;
+              case "vegan":
+                await recipe.addDiet(4);
+                break;
+              case "pescatarian":
+                await recipe.addDiet(5);
+                break;
+              case "paleolithic":
+                await recipe.addDiet(6);
+                break;
+              case "primal":
+                await recipe.addDiet(7);
+                break;
+              case "fodmap friendly":
+                await recipe.addDiet(8);
+                break;
+              case "whole 30":
+                await recipe.addDiet(9);
+                break;
+            }
+          }
         });
-      });
-      Recipe.bulkCreate(recipesArray)
-        .then(console.log("Recipes have been preloaded successfully"))
-        .catch((error) => console.log("Error in Recipes preload", error));
+        console.log("Recipes have been preloaded successfully");
+      } catch (error) {
+        console.log("Error in recipes preload", error);
+      }
     } else console.log("Recipes already exist in the database");
   })();
 });
