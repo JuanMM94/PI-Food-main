@@ -6,9 +6,6 @@ const RecipeCard = ({ renderRecipe }) => {
   const recipe = renderRecipe;
 
   const renderDiets = [];
-  // if (recipe.vegetarian) renderDiets.push('Vegetarian');
-  // if (recipe.vegan) renderDiets.push('Vegan');
-  // if (recipe.glutenFree) renderDiets.push('Gluten Free');
   const recipeId = recipe.id;
   if (recipeId.toString().includes("-")) {
     recipe.diets.forEach((el) => renderDiets.push(el.name));

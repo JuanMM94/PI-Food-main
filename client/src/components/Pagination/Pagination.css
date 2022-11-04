@@ -9,10 +9,8 @@
   background-color: blanchedalmond;
   color: grey;
   padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
+  margin: 8px 8px;
   border-radius: 4px;
-  cursor: pointer;
 }
 
 .button-pagination:hover {

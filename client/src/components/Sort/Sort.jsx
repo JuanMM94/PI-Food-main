@@ -13,15 +13,6 @@ const Sort = () => {
   const dispatch = useDispatch();
 
   const [currentSort, setCurrentSort] = useState("");
-  /*   const sortedRecipes = [...selectFilterRecipes];
-
-  useEffect(() => {
-    setCurrentSort(selectAllRecipes.sort((a, b) => {
-      if (a.title < b.title) return -1;
-      if (a.title > b.title) return 1;
-      return 0;
-    }));
-  }, []); */
 
   const sortRecipesLocal = (event) => {
     setCurrentSort(event.target.value);
