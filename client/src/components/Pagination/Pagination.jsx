@@ -9,7 +9,7 @@ const Pagination = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const postsPerPage = 12;
+  const postsPerPage = 28;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const totalPages = Math.ceil(selectFilteredRecipes.length / postsPerPage);
