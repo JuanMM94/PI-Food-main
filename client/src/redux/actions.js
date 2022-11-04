@@ -10,29 +10,17 @@ import {
 } from "./constants";
 import axios from "axios";
 
-export const getAllRecipes = (name) => (dispatch) => {
-  if (name) {
-    const nameRecipes = fetch(`http://localhost:3001/api/recipes?name=${name}`);
-    nameRecipes
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch({
-          type: GET_ALL_RECIPES,
-          payload: json,
-        });
-      })
-      .catch((error) => console.log(error));
-  } else {
-    return fetch(`http://localhost:3001/api/recipes`)
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch({
-          type: GET_ALL_RECIPES,
-          payload: json,
-        });
-      })
-      .catch((error) => console.log(error));
-  }
+export const getAllRecipes = (name, diet) => (dispatch) => {
+  const recipes = fetch(`http://localhost:3001/api/recipes?name=${name}?diet=${diet}`);
+  return recipes
+    .then((res) => res.json())
+    .then((json) => {
+      dispatch({
+        type: GET_ALL_RECIPES,
+        payload: json,
+      });
+    })
+    .catch((error) => console.log(error));
 };
 
 export const getAllDiets = () => (dispatch) => {
@@ -60,7 +48,7 @@ export const getRecipe = (id) => (dispatch) => {
 };
 
 export const createRecipe = (createRecipe) => (dispatch) => {
-  axios
+  return axios
     .post(`http://localhost:3001/api/recipes/create`, createRecipe)
     .then((json) => {
       dispatch({
