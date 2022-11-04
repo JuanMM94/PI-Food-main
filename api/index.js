@@ -33,7 +33,7 @@ conn.sync({ force: false }).then(() => {
       { name: "Ketogenic" },
       { name: "Lacto Ovo Vegetarian" },
       { name: "Vegan" },
-      { name: "Pescetarian" },
+      { name: "Pescatarian" },
       { name: "Paleo" },
       { name: "Primal" },
       { name: "Low FODMAP" },
