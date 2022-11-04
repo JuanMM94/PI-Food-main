@@ -18,13 +18,13 @@ const Recipes = () => {
         <Sort />
         <Search />
       </div>
+      <Pagination recipes={selectSetRecipes} />
       <div className="container-recipes">
         {selectSetRecipes &&
           selectSetRecipes.map((renderRecipe, index) => (
             <RecipeCard key={index} renderRecipe={renderRecipe} />
           ))}
       </div>
-      <Pagination recipes={selectSetRecipes} />
     </>
   );
 };
