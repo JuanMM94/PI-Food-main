@@ -17,6 +17,7 @@ import {
 
 const initialState = {
   recipes: [],
+  diets: [],
   recipe: {},
   setrecipes: [],
   filterrecipes: [],
@@ -56,9 +57,16 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_RECIPES:
+      let filteredRecipes = [...state.recipes];
+
+      filteredRecipes =
+        action.payload === "none"
+          ? filteredRecipes
+          : filteredRecipes.filter((el) => el.diets.includes(action.payload));
+
       return {
         ...state,
-        filterrecipes: action.payload,
+        filterrecipes: filteredRecipes,
       };
 
     case SORT_RECIPES:
