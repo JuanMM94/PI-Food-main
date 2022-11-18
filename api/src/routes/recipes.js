@@ -86,7 +86,7 @@ router.post('/create', async (req, res) => {
         }
       });
       newRecipeId.then(res => {
-        newRecipeDiets.forEach(el => axios.post(`http://localhost:3001/api/recipes/${res[0].dataValues.id}/diets/${el}`))
+        newRecipeDiets.forEach(el => axios.post(`https://pi-food-main-production.up.railway.app/api/recipes/${res[0].dataValues.id}/diets/${el}`))
       });
     };
     res.status(201).json(newRecipe);
